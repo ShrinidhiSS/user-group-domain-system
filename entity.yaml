@@ -1,4 +1,12 @@
 apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: purchasing
+  description: System for managing user purchases
+spec:
+  owner: ecommerce
+---
+apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: shopping-cart
@@ -8,6 +16,7 @@ spec:
   type: website
   lifecycle: production
   owner: user:john
+  system: purchasing
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -17,6 +26,7 @@ spec:
   type: service
   lifecycle: production
   owner: ecommerce
+  system: purchasing
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Group
