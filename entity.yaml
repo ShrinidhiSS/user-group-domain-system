@@ -1,10 +1,19 @@
 apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shopping-app
+  description: Handles everything about ecommerce portion of the business
+spec:
+  owner: ecommerce
+---
+apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: purchasing
   description: System for managing user purchases
 spec:
   owner: ecommerce
+  domain: shopping-app
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
