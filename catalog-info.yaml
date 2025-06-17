@@ -1,0 +1,67 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shopping-app
+  description: Handles everything about ecommerce portion of the business
+spec:
+  owner: ecommerce
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: purchasing
+  description: System for managing user purchases
+spec:
+  owner: ecommerce
+  domain: shopping-app
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shopping-cart
+spec:
+  dependsOn:
+    - component:inventory
+  type: website
+  lifecycle: production
+  owner: user:john
+  system: purchasing
+  consumesApis: 
+    - artist-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: inventory-db
+  description: Stores inventory details
+spec:
+  type: database
+  owner: ecommerce
+  system: purchasing
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: inventory
+spec:
+  dependsOn:
+  - resource:default/inventory-db
+  type: service
+  lifecycle: production
+  owner: ecommerce
+  system: purchasing
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: ecommerce
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: john
+spec:
+  memberOf: [ecommerce]
